@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.getElementById('submitBtn');
     
     // Базовый URL API (поменяй на свой домен)
-    const API_BASE = '/api';  // или http://u82194.kubsu-dev.ru/api
+    const API_BASE = '/project/api';  
     
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
