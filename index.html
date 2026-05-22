@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Путешествия по миру - Адаптивный сайт с видео</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- НАВИГАЦИЯ -->
+    <nav class="navbar">
+        <div class="container navbar-container">
+            <a href="#" class="logo">WorldTravel</a>
+            
+            <!-- Десктопное меню -->
+            <ul class="nav-menu nav-desktop">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link">Главная</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">О нас</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#tours" class="nav-link">Туры <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="dropdown-item">Европа</a></li>
+                        <li><a href="#" class="dropdown-item">Азия</a></li>
+                        <li><a href="#" class="dropdown-item">Америка</a></li>
+                        <li><a href="#" class="dropdown-item">Африка</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#faq" class="nav-link">Вопросы</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#partners" class="nav-link">Партнеры</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link">Контакты</a>
+                </li>
+                <!-- Кнопка Входа для десктопа (fallback если JS отключен) -->
+                <li class="nav-item">
+                    <a href="login.php" class="nav-link"><i class="fas fa-sign-in-alt"></i> Войти</a>
+                </li>
+            </ul>
+            
+            <!-- МЕНЮ на мобильных -->
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Мобильное меню (полностью скрыто, появляется справа при клике) -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-header">
+                <div class="mobile-menu-logo">WorldTravel</div>
+                <button class="mobile-menu-close" id="mobileMenuClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <ul class="mobile-nav-menu">
+                <li class="mobile-nav-item">
+                    <a href="#home" class="mobile-nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Главная</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#about" class="mobile-nav-link">
+                        <i class="fas fa-info-circle"></i>
+                        <span>О нас</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item mobile-nav-item-dropdown">
+                    <div class="mobile-nav-dropdown-toggle">
+                        <div class="mobile-nav-link">
+                            <i class="fas fa-globe"></i>
+                            <span>Туры</span>
+                        </div>
+                        <i class="fas fa-chevron-down mobile-dropdown-arrow"></i>
+                    </div>
+                    <ul class="mobile-nav-dropdown">
+                        <li><a href="#" class="mobile-dropdown-link">Европа</a></li>
+                        <li><a href="#" class="mobile-dropdown-link">Азия</a></li>
+                        <li><a href="#" class="mobile-dropdown-link">Америка</a></li>
+                        <li><a href="#" class="mobile-dropdown-link">Африка</a></li>
+                    </ul>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#faq" class="mobile-nav-link">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Вопросы</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#partners" class="mobile-nav-link">
+                        <i class="fas fa-handshake"></i>
+                        <span>Партнеры</span>
+                    </a>
+                </li>
+                <li class="mobile-nav-item">
+                    <a href="#contact" class="mobile-nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Контакты</span>
+                    </a>
+                </li>
+                <!-- Кнопка Входа для мобильного меню (fallback если JS отключен) -->
+                <li class="mobile-nav-item">
+                    <a href="login.php" class="mobile-nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Войти</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="mobile-menu-footer">
+                <a href="#contact" class="btn btn-secondary mobile-contact-btn">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Связаться с нами</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ШАПКА С ВИДЕО -->
+    <header id="home">
+        <div class="video-container">
+            <video class="video-background" autoplay muted loop playsinline>
+                <source src="видео.mp4" type="video/mp4">
+                <!-- Запасное онлайн видео -->
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-traveling-over-a-road-in-the-desert-42966-large.mp4" type="video/mp4">
+                Ваш браузер не поддерживает видео тег.
+            </video>
+        </div>
+        <div class="video-overlay"></div>
+        
+        <div class="container header-content">
+            <h1>Откройте для себя мир с нами</h1>
+            <p>Мы создаем незабываемые путешествия по всему миру. От экзотических пляжей до заснеженных горных вершин - мы поможем вам найти идеальный маршрут.</p>
+            <a href="#tours" class="btn btn-secondary">Посмотреть туры</a>
+        </div>
+    </header>
+    
+    <!-- СЕКЦИЯ "О НАС" -->
+    <section id="about">
+        <div class="container">
+            <h2>О нашей компании</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Мы - команда энтузиастов путешествий с более чем 15-летним опытом организации туров по всему миру. Наша миссия - сделать каждое путешествие наших клиентов незабываемым и комфортным.</p>
+                    <p>Мы тщательно разрабатываем маршруты, выбираем лучшие отели и продумываем каждую деталь, чтобы вы могли полностью погрузиться в культуру и атмосферу места, которое посещаете.</p>
+                    <p>С нами вы откроете для себя не только популярные достопримечательности, но и скрытые жемчужины, известные только местным жителям.</p>
+                    <a href="#contact" class="btn">Связаться с нами</a>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1335&q=80" alt="Путешественники в горах">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- СЛАЙДЕР С ТУРАМИ -->
+    <section id="tours" class="slider-section">
+        <div class="container">
+            <h2>Популярные туры</h2>
+            <div class="slider-container">
+                <div class="slider" id="slider">
+                    <div class="slide">
+                        <img src="paris.jpg" alt="Париж, Франция">
+                        <div class="slide-content">
+                            <h3>Романтический Париж</h3>
+                            <p>7 дней в столице Франции. Посещение Эйфелевой башни, Лувра, Монмартра и Версаля.</p>
+                            <a href="#contact" class="btn btn-small">Забронировать</a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="japan.jpg" alt="Япония">
+                        <div class="slide-content">
+                            <h3>Загадочная Япония</h3>
+                            <p>10 дней по Токио, Киото и Осака. Знакомство с древними традициями и современными технологиями.</p>
+                            <a href="#contact" class="btn btn-small">Забронировать</a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="iceland.jpg" alt="Исландия">
+                        <div class="slide-content">
+                            <h3>Исландия: земля льдов и огня</h3>
+                            <p>8 дней по маршруту Золотого кольца. Гейзеры, водопады, ледники и северное сияние.</p>
+                            <a href="#contact" class="btn btn-small">Забронировать</a>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="thailand.jpg" alt="Таиланд">
+                        <div class="slide-content">
+                            <h3>Тропический Таиланд</h3>
+                            <p>12 дней на пляжах Пхукета и в джунглях Чиангмая. Экзотическая кухня и богатая культура.</p>
+                            <a href="#contact" class="btn btn-small">Забронировать</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-prev" id="sliderPrev">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                
+                <div class="slider-dots" id="sliderDots"></div>
+                
+                <button class="slider-next" id="sliderNext">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- СЕКЦИЯ "ПОПУЛЯРНЫЕ ВОПРОСЫ" -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <h2>Популярные вопросы</h2>
+            <p class="section-subtitle">Ответы на наиболее часто задаваемые вопросы о наших турах</p>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Какие документы нужны для оформления тура?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Для оформления тура вам понадобится заграничный паспорт (срок действия не менее 6 месяцев после окончания поездки). В зависимости от страны назначения могут потребоваться виза, медицинская страховка и дополнительные документы.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Можно ли изменить даты поездки после бронирования?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, изменение дат поездки возможно, но зависит от условий конкретного отеля и авиакомпании. Обычно изменения возможны за дополнительную плату.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Что входит в стоимость тура?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>В стандартный тур входит: перелет, проживание в отеле, трансфер из аэропорта в отель и обратно, питание (зависит от типа тура), медицинская страховка.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Есть ли скидки для детей?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Да, мы предоставляем скидки для детей до 12 лет. Размер скидки зависит от отеля и сезона. Дети до 2 лет обычно путешествуют бесплатно.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Как происходит оплата тура?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Вы можете оплатить тур онлайн банковской картой, через интернет-банкинг или наличными в нашем офисе. При бронировании требуется предоплата 30%.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- СЕКЦИЯ "ПАРТНЕРЫ" -->
+    <section id="partners" class="partners-section">
+        <div class="container">
+            <h2>Наши партнеры</h2>
+            <p class="section-subtitle">Мы сотрудничаем с лучшими компаниями в сфере туризма</p>
+            
+            <div class="partners-container">
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <h3>AeroTravel</h3>
+                    <p>Авиакомпания с рейсами по всему миру</p>
+                </div>
+                
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-hotel"></i>
+                    </div>
+                    <h3>Grand Hotels</h3>
+                    <p>Сеть отелей 5* в 50 странах мира</p>
+                </div>
+                
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>SafeTravel Insurance</h3>
+                    <p>Страхование путешественников</p>
+                </div>
+                
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>EuroRent</h3>
+                    <p>Аренда автомобилей по всему миру</p>
+                </div>
+                
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Gourmet Tours</h3>
+                    <p>Гастрономические экскурсии</p>
+                </div>
+                
+                <div class="partner-item">
+                    <div class="partner-logo">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3>PhotoJourney</h3>
+                    <p>Фототуры и профессиональные гиды</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ФОРМА ОБРАТНОЙ СВЯЗИ -->
+    <section id="contact" class="form-section">
+        <div class="container">
+            <h2>Свяжитесь с нами</h2>
+            <p class="section-subtitle">Заполните форму ниже, и наш менеджер свяжется с вами в течение 24 часов</p>
+            
+            <div class="form-container">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Имя *</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" class="form-label">Телефон *</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tour" class="form-label">Интересующий тур</label>
+                        <select id="tour" name="tour" class="form-control">
+                            <option value="">Выберите тур</option>
+                            <option value="paris">Романтический Париж</option>
+                            <option value="japan">Загадочная Япония</option>
+                            <option value="iceland">Исландия: земля льдов и огня</option>
+                            <option value="thailand">Тропический Таиланд</option>
+                            <option value="other">Другой вариант</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" class="form-label">Сообщение</label>
+                        <textarea id="message" name="message" class="form-control" rows="5" placeholder="Расскажите о ваших пожеланиях к туру..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" id="submitBtn">Отправить заявку</button>
+                    
+                    <div class="form-message" id="formMessage"></div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ФУТЕР -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>WorldTravel</h3>
+                <p>Откройте для себя мир с нами. Мы создаем путешествия вашей мечты.</p>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                </div>
+                
+                <p>Телефон: +7 (999) 123-45-67<br>Email: info@worldtravel.com</p>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2025 WorldTravel. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
