@@ -1,9 +1,4 @@
-// script.js для WorldTravel с интеграцией своего API
-
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('WorldTravel — инициализация');
-    
-    // ========== МОБИЛЬНОЕ МЕНЮ (оставляем как есть) ==========
     const menuToggle = document.getElementById('menuToggle');
     const mobileMenu = document.getElementById('mobileMenu');
     const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
@@ -26,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
     if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', closeMobileMenu);
     
-    // Мобильный выпадающий список
     const mobileToursToggle = document.querySelector('.mobile-nav-dropdown-toggle');
     if (mobileToursToggle) {
         mobileToursToggle.addEventListener('click', (e) => {
@@ -35,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Закрытие меню при клике на ссылки
     document.querySelectorAll('.mobile-nav-link, .mobile-dropdown-link').forEach(link => {
         link.addEventListener('click', (e) => {
             if (!e.target.closest('.mobile-nav-dropdown-toggle')) {
@@ -44,14 +37,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Escape для закрытия меню
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
             closeMobileMenu();
         }
     });
     
-    // ========== СЛАЙДЕР ==========
     const slider = document.getElementById('slider');
     const sliderPrev = document.getElementById('sliderPrev');
     const sliderNext = document.getElementById('sliderNext');
@@ -125,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
     createSliderDots();
     if (totalSlides > 0) startSlideInterval();
     
-    // ========== FAQ ==========
     document.querySelectorAll('.faq-question').forEach(question => {
         question.addEventListener('click', () => {
             const item = question.closest('.faq-item');
@@ -133,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // ========== ПЛАВНАЯ ПРОКРУТКА ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             if (this.classList.contains('dropdown-item') || 
@@ -152,7 +141,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // ========== ИЗМЕНЕНИЕ НАВИГАЦИИ ПРИ СКРОЛЛЕ ==========
     window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         if (navbar) {
@@ -166,19 +154,14 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // ========== НОВАЯ ФОРМА — ОТПРАВКА НА СВОЙ API ==========
     const contactForm = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
     const submitBtn = document.getElementById('submitBtn');
-    
-    // Базовый URL API (поменяй на свой домен)
-    const API_BASE = '/project/api';  
     
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            // Собираем данные формы
             const formData = {
                 name: document.getElementById('name')?.value || '',
                 email: document.getElementById('email')?.value || '',
@@ -187,7 +170,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: document.getElementById('message')?.value || ''
             };
             
-            // Простая валидация
             if (!formData.name || !formData.email || !formData.phone) {
                 showFormMessage('❌ Пожалуйста, заполните имя, email и телефон', 'error');
                 return;
@@ -198,13 +180,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
             
-            // Блокируем кнопку
             const originalText = submitBtn.textContent;
             submitBtn.disabled = true;
             submitBtn.textContent = 'Отправка...';
             
             try {
-                const response = await fetch(`${API_BASE}/register`, {
+                const response = await fetch('/project/register.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData)
@@ -213,10 +194,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const result = await response.json();
                 
                 if (result.success) {
-                    // Успешная отправка
                     contactForm.reset();
-                    
-                    // Показываем логин и пароль пользователю
                     const login = result.data.login;
                     const password = result.data.password;
                     
@@ -229,7 +207,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         'success'
                     );
                     
-                    // Добавляем кнопку для перехода к авторизации
                     const authLink = document.createElement('div');
                     authLink.style.marginTop = '15px';
                     authLink.innerHTML = '<a href="#login" id="showLoginForm" style="color: #4a6fa5; text-decoration: underline;">Перейти к авторизации →</a>';
@@ -266,9 +243,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 10000);
     }
     
-    // ========== МОДАЛЬНОЕ ОКНО ДЛЯ АВТОРИЗАЦИИ ==========
     function showLoginModal() {
-        // Создаём модальное окно
         const modal = document.createElement('div');
         modal.id = 'loginModal';
         modal.style.cssText = `
@@ -317,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
             msgDiv.innerHTML = 'Вход...';
             
             try {
-                const response = await fetch(`${API_BASE}/login`, {
+                const response = await fetch('/project/login-api.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ login, password })
@@ -347,7 +322,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function showEditForm(user) {
-        // Создаём форму редактирования
         const editDiv = document.createElement('div');
         editDiv.id = 'editForm';
         editDiv.style.cssText = `
@@ -420,8 +394,8 @@ document.addEventListener('DOMContentLoaded', function() {
             msgDiv.innerHTML = 'Сохранение...';
             
             try {
-                const response = await fetch(`${API_BASE}/user/${user.id}`, {
-                    method: 'PUT',
+                const response = await fetch(`/project/update.php?user_id=${user.id}`, {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(updatedData)
                 });
@@ -455,7 +429,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Добавляем кнопку "Войти" в навигацию для авторизованных пользователей
     const navMenu = document.querySelector('.nav-desktop');
     if (navMenu && !document.querySelector('.nav-link[href="#login"]')) {
         const loginItem = document.createElement('li');
@@ -469,7 +442,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Для мобильного меню тоже добавим
     const mobileNav = document.querySelector('.mobile-nav-menu');
     if (mobileNav && !document.querySelector('.mobile-nav-link[href="#login"]')) {
         const mobileLoginItem = document.createElement('li');
@@ -484,5 +456,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    console.log('WorldTravel — полностью инициализирован с API');
+    console.log('WorldTravel инициализирован');
 });
