@@ -158,9 +158,112 @@ document.addEventListener('DOMContentLoaded', function() {
     const formMessage = document.getElementById('formMessage');
     const submitBtn = document.getElementById('submitBtn');
     
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+        return '';
+    }
+    
+    function setCookie(name, value, days) {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
+    }
+    
+    function loadSavedData() {
+        const savedName = getCookie('saved_name');
+        const savedEmail = getCookie('saved_email');
+        const savedPhone = getCookie('saved_phone');
+        const savedTour = getCookie('saved_tour');
+        const savedMessage = getCookie('saved_message');
+        
+        if (savedName) document.getElementById('name').value = savedName;
+        if (savedEmail) document.getElementById('email').value = savedEmail;
+        if (savedPhone) document.getElementById('phone').value = savedPhone;
+        if (savedTour) document.getElementById('tour').value = savedTour;
+        if (savedMessage) document.getElementById('message').value = savedMessage;
+    }
+    
+    function validateForm(data) {
+        const errors = {};
+        
+        if (!data.name.trim()) {
+            errors.name = 'Имя обязательно для заполнения';
+        } else if (!/^[a-zA-Zа-яА-ЯёЁ\s\-]+$/u.test(data.name)) {
+            errors.name = 'Имя может содержать только буквы, пробелы и дефисы';
+        }
+        
+        if (!data.email.trim()) {
+            errors.email = 'Email обязателен для заполнения';
+        } else if (!/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/.test(data.email)) {
+            errors.email = 'Введите корректный email (например: name@domain.com)';
+        }
+        
+        if (!data.phone.trim()) {
+            errors.phone = 'Телефон обязателен для заполнения';
+        } else if (!/^(\+7|8)[0-9]{10}$/.test(data.phone)) {
+            errors.phone = 'Телефон должен быть в формате +7XXXXXXXXXX или 8XXXXXXXXXX (10 цифр после кода)';
+        }
+        
+        if (!data.tour) {
+            errors.tour = 'Выберите интересующий тур';
+        }
+        
+        return errors;
+    }
+    
+    function showFieldError(fieldId, message) {
+        const field = document.getElementById(fieldId);
+        field.style.borderColor = '#dc3545';
+        field.style.backgroundColor = '#fff8f8';
+        
+        let errorDiv = field.parentElement.querySelector('.field-error');
+        if (!errorDiv) {
+            errorDiv = document.createElement('div');
+            errorDiv.className = 'field-error';
+            errorDiv.style.cssText = 'color: #dc3545; font-size: 12px; margin-top: 5px;';
+            field.parentElement.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+    }
+    
+    function clearFieldError(fieldId) {
+        const field = document.getElementById(fieldId);
+        field.style.borderColor = '';
+        field.style.backgroundColor = '';
+        
+        const errorDiv = field.parentElement.querySelector('.field-error');
+        if (errorDiv) {
+            errorDiv.remove();
+        }
+    }
+    
+    function clearAllErrors() {
+        const fields = ['name', 'email', 'phone', 'tour'];
+        fields.forEach(clearFieldError);
+    }
+    
+    function showFormMessage(msg, type) {
+        if (!formMessage) return;
+        formMessage.innerHTML = msg + '<br><br><button onclick="this.parentElement.style.display=\'none\'" style="background:#4a6fa5; color:white; border:none; padding:5px 15px; border-radius:5px; cursor:pointer; font-size:14px;">✖ Закрыть</button>';
+        formMessage.className = `form-message ${type}`;
+        formMessage.style.display = 'block';
+        
+        setTimeout(() => {
+            if (formMessage && formMessage.style.display !== 'none') {
+                formMessage.style.display = 'none';
+            }
+        }, 60000);
+    }
+    
+    loadSavedData();
+    
     if (contactForm) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            clearAllErrors();
             
             const formData = {
                 name: document.getElementById('name')?.value || '',
@@ -170,13 +273,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: document.getElementById('message')?.value || ''
             };
             
-            if (!formData.name || !formData.email || !formData.phone) {
-                showFormMessage('❌ Пожалуйста, заполните имя, email и телефон', 'error');
-                return;
-            }
+            const errors = validateForm(formData);
             
-            if (!formData.email.includes('@')) {
-                showFormMessage('❌ Введите корректный email', 'error');
+            if (Object.keys(errors).length > 0) {
+                for (const [field, message] of Object.entries(errors)) {
+                    showFieldError(field, message);
+                }
+                showFormMessage('❌ Пожалуйста, исправьте ошибки в форме', 'error');
                 return;
             }
             
@@ -194,7 +297,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 const result = await response.json();
                 
                 if (result.success) {
+                    setCookie('saved_name', formData.name, 365);
+                    setCookie('saved_email', formData.email, 365);
+                    setCookie('saved_phone', formData.phone, 365);
+                    setCookie('saved_tour', formData.tour, 365);
+                    setCookie('saved_message', formData.message, 365);
+                    
                     contactForm.reset();
+                    loadSavedData();
+                    
                     const login = result.data.login;
                     const password = result.data.password;
                     
@@ -218,8 +329,16 @@ document.addEventListener('DOMContentLoaded', function() {
                     });
                     
                 } else {
-                    const errors = result.errors || [result.error || 'Ошибка отправки'];
-                    showFormMessage(`❌ ${errors.join('<br>')}`, 'error');
+                    if (result.errors) {
+                        for (const [field, message] of Object.entries(result.errors)) {
+                            if (field !== 'general') {
+                                showFieldError(field, message);
+                            }
+                        }
+                        showFormMessage('❌ Пожалуйста, исправьте ошибки в форме', 'error');
+                    } else {
+                        showFormMessage('❌ Ошибка отправки. Попробуйте позже.', 'error');
+                    }
                 }
                 
             } catch (error) {
@@ -230,17 +349,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 submitBtn.textContent = originalText;
             }
         });
-    }
-    
-    function showFormMessage(msg, type) {
-        if (!formMessage) return;
-        formMessage.innerHTML = msg;
-        formMessage.className = `form-message ${type}`;
-        formMessage.style.display = 'block';
-        
-        setTimeout(() => {
-            if (formMessage) formMessage.style.display = 'none';
-        }, 10000);
     }
     
     function showLoginModal() {
@@ -456,5 +564,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    console.log('WorldTravel инициализирован');
+    console.log('WorldTravel инициализирован с валидацией');
 });

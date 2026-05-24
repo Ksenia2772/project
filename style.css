@@ -121,7 +121,16 @@ section {
     margin-right: auto;
 }
 
-/* ========== НАВИГАЦИЯ ========== */
+.field-error {
+    color: #dc3545;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.form-control.error {
+    border-color: #dc3545;
+    background-color: #fff8f8;
+}
 
 .navbar {
     position: fixed;
@@ -149,7 +158,6 @@ section {
     color: var(--primary);
 }
 
-/* ДЕСКТОПНОЕ МЕНЮ  */
 .nav-desktop {
     display: none;
 }
@@ -177,7 +185,6 @@ section {
     color: var(--primary);
 }
 
-/* Выпадающее меню для десктопа */
 .dropdown-menu {
     position: absolute;
     top: 100%;
@@ -212,7 +219,6 @@ section {
     transform: translateY(0);
 }
 
-/* КНОПКА МЕНЮ (три полоски)  */
 .menu-toggle {
     display: block;
     font-size: 1.5rem;
@@ -228,7 +234,6 @@ section {
     justify-content: center;
 }
 
-/* ОВЕРЛЕЙ ДЛЯ МОБИЛЬНОГО МЕНЮ */
 .mobile-menu-overlay {
     position: fixed;
     top: 0;
@@ -247,7 +252,6 @@ section {
     visibility: visible;
 }
 
-/* МОБИЛЬНОЕ МЕНЮ - СКРЫТО, ПОЯВЛЯЕТСЯ СПРАВА ПРИ КЛИКЕ */
 .mobile-menu {
     position: fixed;
     top: 0;
@@ -267,7 +271,6 @@ section {
     right: 0;
 }
 
-/* Заголовок мобильного меню */
 .mobile-menu-header {
     display: flex;
     justify-content: space-between;
@@ -297,7 +300,6 @@ section {
     justify-content: center;
 }
 
-/* Мобильное навигационное меню */
 .mobile-nav-menu {
     list-style: none;
     padding: 1rem 0;
@@ -335,7 +337,6 @@ section {
     color: var(--primary);
 }
 
-/* Выпадающее меню в мобильной версии */
 .mobile-nav-item-dropdown {
     border-bottom: 1px solid var(--light-gray);
 }
@@ -388,7 +389,6 @@ section {
     color: var(--primary);
 }
 
-/* Футер мобильного меню */
 .mobile-menu-footer {
     padding: 1.5rem;
     border-top: 1px solid var(--light-gray);
@@ -408,7 +408,6 @@ section {
     font-size: 1.1rem;
 }
 
-/* ========== ШАПКА С ВИДЕО ========== */
 header {
     position: relative;
     height: 100vh;
@@ -475,7 +474,6 @@ header {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-/* ========== СЕКЦИЯ "О НАС" ========== */
 .about-content {
     display: flex;
     flex-direction: column;
@@ -493,7 +491,6 @@ header {
     box-shadow: var(--shadow);
 }
 
-/* ========== СЛАЙДЕР ========== */
 .slider-section {
     background-color: var(--light);
 }
@@ -591,7 +588,6 @@ header {
     background-color: var(--primary);
 }
 
-/* ========== FAQ ========== */
 .faq-section {
     background-color: var(--light);
 }
@@ -657,7 +653,6 @@ header {
     line-height: 1.6;
 }
 
-/* ========== ПАРТНЕРЫ ========== */
 .partners-section {
     background-color: white;
 }
@@ -708,7 +703,6 @@ header {
     font-size: 0.9rem;
 }
 
-/* ========== ФОРМА ========== */
 .form-section {
     background-color: var(--light-gray);
 }
@@ -775,7 +769,6 @@ header {
     display: block;
 }
 
-/* ========== ФУТЕР ========== */
 footer {
     background-color: var(--dark);
     color: white;
@@ -822,7 +815,6 @@ footer {
     padding-top: 1.5rem;
 }
 
-/* ========== ПЛАНШЕТЫ (min-width: 768px) ========== */
 @media (min-width: 768px) {
     h1 {
         font-size: 2.8rem;
@@ -845,18 +837,15 @@ footer {
         font-size: 1.4rem;
     }
     
-    /* Скрываем кнопку меню на планшетах/десктопах */
     .menu-toggle {
         display: none;
     }
     
-    /* Показываем десктопное меню */
     .nav-desktop {
         display: flex;
         gap: 2rem;
     }
     
-    /* Скрываем мобильное меню */
     .mobile-menu,
     .mobile-menu-overlay {
         display: none !important;
@@ -892,7 +881,6 @@ footer {
     }
 }
 
-/* ========== ДЕСКТОПЫ (min-width: 992px) ========== */
 @media (min-width: 992px) {
     .container {
         max-width: 960px;
